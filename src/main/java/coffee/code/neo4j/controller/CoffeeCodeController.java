@@ -19,20 +19,20 @@ public class CoffeeCodeController {
 private CoffeeCodeService coffeeCodeService;
 
     @GetMapping
-    public List<SoftwareProduct> getAllProducts() {
+    public List<ProductDetails> getAllProducts() {
         return coffeeCodeService.getAllSoftwareProducts();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SoftwareProduct> getProductById(@PathVariable Long id) {
+    public ResponseEntity<ProductDetails> getProductById(@PathVariable String id) {
         return coffeeCodeService.getSoftwareProductById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public SoftwareProduct createProduct(@RequestBody ProductDetails productDetails) {
-        return coffeeCodeService.createSoftwareProduct(productDetails);
+    public SoftwareProduct createProduct(@RequestBody SoftwareProduct softwareProduct) {
+        return coffeeCodeService.createSoftwareProduct(softwareProduct);
     }
 
     @DeleteMapping("/{id}")

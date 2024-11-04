@@ -17,21 +17,15 @@ public class CoffeeCodeService {
 
     private CoffeeCodeRepository coffeeCodeRepository;
 
-    public List<SoftwareProduct> getAllSoftwareProducts() {
-        return coffeeCodeRepository.findAll();
+    public List<ProductDetails> getAllSoftwareProducts() {
+        return coffeeCodeRepository.findAllSoftwareProducts();
     }
 
-    public Optional<SoftwareProduct> getSoftwareProductById(Long id) {
-        return coffeeCodeRepository.findById(id);
+    public Optional<ProductDetails> getSoftwareProductById(String id) {
+        return coffeeCodeRepository.findSoftwareProductById(id);
     }
 
-    public SoftwareProduct createSoftwareProduct(ProductDetails productDetails) {
-        SoftwareProduct softwareProduct = SoftwareProduct.builder()
-                .name(productDetails.getName())
-                .version(productDetails.getVersion())
-                .frontEnd(productDetails.getFrontEnd())
-                .backEnd(productDetails.getBackEnd())
-                .build();
+    public SoftwareProduct createSoftwareProduct(SoftwareProduct softwareProduct) {
         return coffeeCodeRepository.save(softwareProduct);
     }
 
