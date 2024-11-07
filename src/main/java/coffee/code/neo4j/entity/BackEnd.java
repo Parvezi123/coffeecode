@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @Node(primaryLabel = "BackEnd")
 public class BackEnd {
+    @Id
+    private String id;
     private List<String> languages;
     private List<String> frameworks;
 }

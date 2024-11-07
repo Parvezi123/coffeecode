@@ -1,7 +1,5 @@
 package coffee.code.neo4j.dto;
 
-import coffee.code.neo4j.entity.BackEnd;
-import coffee.code.neo4j.entity.FrontEnd;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +9,6 @@ public class ProductDetails {
 
     private String name;
     private String version;
-    private FrontEnd frontEnd;
-    private BackEnd backEnd;
+    private TechStackEndInfo frontEndInfo;
+    private TechStackEndInfo backEndInfo;
 }

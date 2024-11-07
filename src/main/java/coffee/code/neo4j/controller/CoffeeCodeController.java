@@ -1,9 +1,7 @@
 package coffee.code.neo4j.controller;
 
 import coffee.code.neo4j.dto.ProductDetails;
-import coffee.code.neo4j.entity.SoftwareProduct;
 import coffee.code.neo4j.service.CoffeeCodeService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,30 +11,33 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/coffee-code")
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class CoffeeCodeController {
 
-private CoffeeCodeService coffeeCodeService;
+private final CoffeeCodeService coffeeCodeService;
+
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getAllSoftwareProductNames() {
+        return ResponseEntity.ok(coffeeCodeService.getAllSoftwareProductNames());
+    }
 
     @GetMapping
-    public List<ProductDetails> getAllProducts() {
-        return coffeeCodeService.getAllSoftwareProducts();
+    public ResponseEntity<List<ProductDetails>> getAllSoftwareProducts() {
+        return ResponseEntity.ok(coffeeCodeService.getCompleteSoftwareProducts());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDetails> getProductById(@PathVariable String id) {
-        return coffeeCodeService.getSoftwareProductById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ProductDetails> getCompleteSoftwareProductById(@PathVariable String id) {
+        return ResponseEntity.ok(coffeeCodeService.getCompleteSoftwareProductById(id));
     }
 
     @PostMapping
-    public SoftwareProduct createProduct(@RequestBody SoftwareProduct softwareProduct) {
-        return coffeeCodeService.createSoftwareProduct(softwareProduct);
+    public ResponseEntity<Void> createProduct(@RequestBody ProductDetails productDetails) {
+        coffeeCodeService.createSoftwareProduct(productDetails);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
         coffeeCodeService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }

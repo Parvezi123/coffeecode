@@ -5,4 +5,6 @@ spring:
     uri: bolt://localhost:7687
     authentication:
         username: neo4j
-        password: admin123
+        password: coffee-code
+server:
+    port: 8989
