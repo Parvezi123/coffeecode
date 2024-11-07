@@ -9,6 +9,7 @@ import coffee.code.neo4j.repository.CoffeeCodeRepository;
 import coffee.code.neo4j.repository.CustomCoffeeCodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,10 +31,9 @@ public class CoffeeCodeService {
         return coffeeCodeRepository.findAllSoftwareProductNames();
     }
 
+    @Transactional(readOnly = true)
     public ProductDetails getCompleteSoftwareProductById(String id) {
-        Map<String, Object> parameters = Map.ofEntries(
-                entry("id", id)
-        );
+        Map<String, Object> parameters = Map.ofEntries(entry("id", id));
         return customCoffeeCodeRepository.getSingleDTOMappingAsResultForReadTransactions(
                 QUERY_TO_GET_A_SOFTWARE_PRODUCT, parameters, ApplicationConstant.RESULT_NAME, ProductDetails.class);
     }
